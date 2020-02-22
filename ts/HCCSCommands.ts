@@ -23,7 +23,7 @@ export interface IHCThread {
 export interface IHCMessage {
 	senderId: string;
 	threadId: string;
-	payload: string;
+	payload: Buffer;
 }
 
 export interface IHCDevice {
