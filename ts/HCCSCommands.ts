@@ -16,6 +16,7 @@ export interface HCCSGlobalCommands extends CommandSetStructure {
 
 type HCBot = {};
 type HCUser = {};
+type HCMessage = {};
 
 export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"signUp start": {
@@ -59,8 +60,33 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 		return: HCUser[];
 	};
 	"chat send": {
-		params: {threadId: string, }
-	}
+		params: {threadId: string, payload: {[userId: string]: Buffer}};
+		return: void;
+	};
+	"chat history me": {
+		params: void;
+		return: HCMessage[];
+	};
+	"chat history in": {
+		params: string;
+		return: HCMessage[];
+	};
+	"crypto user publicKey": {
+		params: string;
+		return: Buffer;
+	};
+	"crypto device publicKey": {
+		params: string;
+		return: Buffer;
+	};
+	"registration user privateKey": {
+		params: {salt: Buffer, password: Buffer};
+		return: void;
+	};
+	"registration user device publicKeys": {
+		params: string;
+		return: {[deviceId: string]: Buffer};
+	};
 }
 
 export interface HCCSBotCommands extends CommandSetStructure, HCCSGlobalCommands {
