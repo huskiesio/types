@@ -9,9 +9,10 @@ export {
 	HCCSBotCommands,
 	HCCSGlobalCommands,
 	HCCSServerCommands,
-	IHCDevice,
-	IHCDirectoryContact,
-	IHCMessage,
-	IHCThread,
-	IHCUser
+	IHCAPICurried,
+	IHCAPIDevice,
+	IHCAPIDirectoryContact,
+	IHCAPIMessage,
+	IHCAPIThread,
+	IHCAPIUser
 } from "./HCCSCommands";

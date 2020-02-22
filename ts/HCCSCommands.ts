@@ -6,131 +6,123 @@
  */
 
 import {CommandSetStructure} from "@command-socket/core";
-
-export interface IHCUser {
-	firstName: string;
-	lastName: string;
-	username: string;
-	publicKey: Buffer;
-}
-
-export interface IHCThread {
-	name: string;
-	description: string;
-	memberIds: string[];
-}
-
-export interface IHCMessage {
-	senderId: string;
-	threadId: string;
-	payload: Buffer;
-}
-
-export interface IHCDevice {
-	userId: string;
-	name: string;
-	publicKey: Buffer;
-}
-
-export interface IHCDirectoryContact {
-	firstName: string;
-	lastName: string;
-	username: string;
-}
+import {IHCAPIMessage, IHCAPIUser} from "./objects";
 
 export interface HCCSGlobalCommands extends CommandSetStructure {
 	ping: {
-		params: void;
+		parameter: void;
 		return: number;
+		name: "";
 	};
 }
 
 export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"signUp start": {
-		params: {email: string, password: string, userPublicKey: string, devicePublicKey: string};
+		parameter: {email: string, password: string, userPublicKey: string, devicePublicKey: string};
 		return: void;
+		name: "";
 	};
 	"signUp finish": {
-		params: {username: string, code: number};
+		parameter: {username: string, code: number};
 		return: void;
+		name: "";
 	};
 	"signIn": {
-		params: {username: string, password: string};
+		parameter: {username: string, password: string};
 		return: void;
+		name: "";
 	};
 	"user me": {
-		params: void;
-		return: IHCUser;
+		parameter: void;
+		return: IHCAPIUser;
+		name: "";
 	};
 	"user me avatar get": {
-		params: void;
+		parameter: void;
 		return: Buffer;
+		name: "";
 	};
 	"user me avatar set": {
-		params: Buffer;
+		parameter: Buffer;
 		return: void;
+		name: "";
 	};
 	"user me password": {
-		params: {current: string, new: string};
+		parameter: {current: string, new: string};
 		return: void;
+		name: "";
 	};
 	"user search username": {
-		params: string;
-		return: IHCUser;
+		parameter: string;
+		return: IHCAPIUser;
+		name: "";
 	};
 	"user search id": {
-		params: string;
-		return: IHCUser;
+		parameter: string;
+		return: IHCAPIUser;
+		name: "";
 	};
 	"user search query": {
-		params: string;
-		return: IHCUser[];
+		parameter: string;
+		return: IHCAPIUser[];
+		name: "";
 	};
 	"chat send": {
-		params: {threadId: string, payload: {[userId: string]: Buffer}};
+		parameter: {threadId: string, payload: {[userId: string]: Buffer}};
 		return: void;
+		name: "";
 	};
 	"chat history me": {
-		params: void;
-		return: IHCMessage[];
+		parameter: void;
+		return: IHCAPIMessage[];
+		name: "";
 	};
 	"chat history in": {
-		params: string;
-		return: IHCMessage[];
+		parameter: string;
+		return: IHCAPIMessage[];
+		name: "";
 	};
 	"crypto user publicKey": {
-		params: string;
+		parameter: string;
 		return: Buffer;
+		name: "";
 	};
 	"crypto device publicKey": {
-		params: string;
+		parameter: string;
 		return: Buffer;
+		name: "";
 	};
 	"registration user privateKey": {
-		params: {salt: Buffer, password: Buffer};
+		parameter: {salt: Buffer, password: Buffer};
 		return: void;
+		name: "";
 	};
 	"registration user device publicKeys": {
-		params: string;
+		parameter: string;
 		return: {[deviceId: string]: Buffer};
+		name: "";
 	};
 }
 
 export interface HCCSBotCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"me avatar": {
-		params: Buffer;
+		parameter: Buffer;
 		return: void;
+		name: "";
 	};
 	"registration provideUserPrivateKey": {
-		params: {newDevicePublicKey: Buffer, hashedPasswordProvided: Buffer, salt: Buffer};
+		parameter: {newDevicePublicKey: Buffer, hashedPasswordProvided: Buffer, salt: Buffer};
 		return: Buffer;
+		name: "";
 	};
 	"chat message received": {
-		params: {threadId: string, senderId: string, payload: Buffer, timestamp: number};
+		parameter: {threadId: string, senderId: string, payload: Buffer, timestamp: number};
 		return: void;
+		name: "";
 	};
 	"chat message sent": {
-		params: {threadId: string, payload: Buffer, timestamp: number};
+		parameter: {threadId: string, payload: Buffer, timestamp: number};
 		return: void;
+		name: "";
 	};
 }
