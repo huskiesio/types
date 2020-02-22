@@ -7,16 +7,43 @@
 
 import {CommandSetStructure} from "@command-socket/core";
 
+export interface IHCUser {
+	firstName: string;
+	lastName: string;
+	username: string;
+	publicKey: Buffer;
+}
+
+export interface IHCThread {
+	name: string;
+	description: string;
+	memberIds: string[];
+}
+
+export interface IHCMessage {
+	senderId: string;
+	threadId: string;
+	payload: string;
+}
+
+export interface IHCDevice {
+	userId: string;
+	name: string;
+	publicKey: Buffer;
+}
+
+export interface IHCDirectoryContact {
+	firstName: string;
+	lastName: string;
+	username: string;
+}
+
 export interface HCCSGlobalCommands extends CommandSetStructure {
 	ping: {
 		params: void;
 		return: number;
 	};
 }
-
-type HCBot = {};
-type HCUser = {};
-type HCMessage = {};
 
 export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"signUp start": {
@@ -29,11 +56,11 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 	};
 	"signIn": {
 		params: {username: string, password: string};
-		return: HCBot;
+		return: void;
 	};
 	"user me": {
 		params: void;
-		return: HCUser;
+		return: IHCUser;
 	};
 	"user me avatar get": {
 		params: void;
@@ -49,15 +76,15 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 	};
 	"user search username": {
 		params: string;
-		return: HCUser;
+		return: IHCUser;
 	};
 	"user search id": {
 		params: string;
-		return: HCUser;
+		return: IHCUser;
 	};
 	"user search query": {
 		params: string;
-		return: HCUser[];
+		return: IHCUser[];
 	};
 	"chat send": {
 		params: {threadId: string, payload: {[userId: string]: Buffer}};
@@ -65,11 +92,11 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 	};
 	"chat history me": {
 		params: void;
-		return: HCMessage[];
+		return: IHCMessage[];
 	};
 	"chat history in": {
 		params: string;
-		return: HCMessage[];
+		return: IHCMessage[];
 	};
 	"crypto user publicKey": {
 		params: string;
@@ -90,5 +117,20 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 }
 
 export interface HCCSBotCommands extends CommandSetStructure, HCCSGlobalCommands {
-
+	"me avatar": {
+		params: Buffer;
+		return: void;
+	};
+	"registration provideUserPrivateKey": {
+		params: {newDevicePublicKey: Buffer, hashedPasswordProvided: Buffer, salt: Buffer};
+		return: Buffer;
+	};
+	"chat message received": {
+		params: {threadId: string, senderId: string, payload: Buffer, timestamp: number};
+		return: void;
+	};
+	"chat message sent": {
+		params: {threadId: string, payload: Buffer, timestamp: number};
+		return: void;
+	};
 }
