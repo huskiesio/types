@@ -5,4 +5,12 @@
  * github.com/elijahjcobb
  */
 
-export {HCCSCommands} from "./HCCSCommands";
+export {
+	HCCSBotCommands,
+	HCCSGlobalCommands,
+	IHCDevice,
+	IHCDirectoryContact,
+	IHCMessage,
+	IHCThread,
+	IHCUser
+} from "./HCCSCommands";
