@@ -8,11 +8,14 @@
 export {
 	HCCSBotCommands,
 	HCCSGlobalCommands,
-	HCCSServerCommands,
+	HCCSServerCommands
+} from "./HCCSCommands";
+
+export {
 	IHCAPICurried,
 	IHCAPIDevice,
 	IHCAPIDirectoryContact,
 	IHCAPIMessage,
 	IHCAPIThread,
 	IHCAPIUser
-} from "./HCCSCommands";
+} from "./objects";
