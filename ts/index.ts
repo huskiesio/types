@@ -8,6 +8,7 @@
 export {
 	HCCSBotCommands,
 	HCCSGlobalCommands,
+	HCCSServerCommands,
 	IHCDevice,
 	IHCDirectoryContact,
 	IHCMessage,
