@@ -45,12 +45,12 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 		return: IHCAPIUser;
 	};
 	"user me avatar get": {
-		parameter: void;
+		parameter: boolean;
 		return: string | undefined;
 	};
 	"user me avatar set": {
 		parameter: string;
-		return: void;
+		return: boolean;
 	};
 	"user me password": {
 		parameter: {current: string, new: string};
