@@ -1,6 +1,6 @@
 {
   "name": "@huskiesio/types",
-  "version": "0.1.15",
+  "version": "0.1.30",
   "description": "A package to template lorem ipsum.",
   "keywords": [],
   "main": "js/index",

@@ -10,7 +10,7 @@ import {IHCAPIMessage, IHCAPIThread, IHCAPIUser} from "./objects";
 
 export interface HCCSGlobalCommands extends CommandSetStructure {
 	ping: {
-		parameter: void;
+		parameter: boolean;
 		return: number;
 	};
 }
@@ -20,41 +20,41 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 		parameter: {
 			email: string,
 			password: string,
-			userPublicKey: Buffer,
-			devicePublicKey: Buffer,
+			userPublicKey: string,
+			devicePublicKey: string,
 			firstName: string,
 			lastName: string,
 			deviceName: string
 		};
-		return: void;
+		return: string;
 	};
 	"signUp finish": {
-		parameter: string;
-		return: void;
+		parameter: {code: string, token: string};
+		return: string;
 	};
 	"signIn start": {
-		parameter: {username: string, password: string, deviceId: string, devicePublicKey: Buffer, needsUserPrivateKey: boolean};
-		return: Buffer;
+		parameter: {username: string, password: string, deviceId: string, devicePublicKey?: string, needsUserPrivateKey?: boolean};
+		return: string;
 	};
 	"signIn finish": {
-		parameter: {signature: Buffer};
-		return: void;
+		parameter: {signature: string};
+		return: boolean;
 	};
 	"user me": {
-		parameter: void;
+		parameter: boolean;
 		return: IHCAPIUser;
 	};
 	"user me avatar get": {
 		parameter: void;
-		return: Buffer | undefined;
+		return: string | undefined;
 	};
 	"user me avatar set": {
-		parameter: Buffer;
+		parameter: string;
 		return: void;
 	};
 	"user me password": {
 		parameter: {current: string, new: string};
-		return: void;
+		return: boolean;
 	};
 	"user search username": {
 		parameter: string;
@@ -68,55 +68,75 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 		parameter: string;
 		return: IHCAPIUser[];
 	};
+	"chat thread keys": {
+		parameter: string;
+		return: {[userId: string]: string};
+	};
 	"chat send": {
-		parameter: {threadId: string, payload: {[userId: string]: Buffer}};
-		return: void;
+		parameter: {threadId: string, payload: {[userId: string]: string}};
+		return: boolean;
 	};
-	"chat history me messages": {
-		parameter: void;
-		return: IHCAPIMessage[];
+	"chat thread create": {
+		parameter: {members: string[], name: string, description: string};
+		return: string;
 	};
-	"chat history me threads": {
-		parameter: void;
+	"chat thread": {
+		parameter: string;
+		return: IHCAPIThread | undefined;
+	};
+	"chat thread member add": {
+		parameter: {threadId: string, userId: string};
+		return: boolean
+	};
+	"chat thread member remove": {
+		parameter: {threadId: string, userId: string};
+		return: boolean;
+	};
+	"chat thread my": {
+		parameter: boolean;
 		return: IHCAPIThread[];
 	};
-	"chat history in": {
-		parameter: void;
+	"chat history": {
+		parameter: {messageId: string, relativeHistory: number},
 		return: IHCAPIMessage[];
 	};
 	"crypto user publicKey": {
 		parameter: string;
-		return: Buffer;
+		return: string | undefined;
 	};
 	"crypto device publicKey": {
 		parameter: string;
-		return: Buffer;
+		return: string | undefined;
 	};
 	"registration user privateKey": {
-		parameter: {salt: Buffer, password: Buffer};
-		return: void;
+		parameter: {salt: string, password: string};
+		return: boolean;
 	};
 	"registration user device publicKeys": {
 		parameter: string;
-		return: {[deviceId: string]: Buffer};
+		return: {[deviceId: string]: string};
 	};
 }
 
 export interface HCCSBotCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"me avatar": {
-		parameter: Buffer;
-		return: void;
+		parameter: string;
+		return: boolean;
 	};
 	"registration provideUserPrivateKey": {
-		parameter: {newDevicePublicKey: Buffer, hashedPasswordProvided: Buffer, salt: Buffer};
-		return: Buffer;
+		parameter: {newDevicePublicKey: string, hashedPasswordProvided: string, salt: string};
+		return: string;
 	};
 	"chat message received": {
-		parameter: {threadId: string, senderId: string, payload: Buffer, timestamp: number};
-		return: void;
+		parameter: {threadId: string, senderId: string, payload: string, timestamp: number};
+		return: boolean;
 	};
 	"chat message sent": {
-		parameter: {threadId: string, payload: Buffer, timestamp: number};
-		return: void;
+		parameter: {threadId: string, payload: string, timestamp: number};
+		return: boolean;
+	};
+	"thread updated": {
+		parameter: string;
+		return: boolean;
 	};
 }
