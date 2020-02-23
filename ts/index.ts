@@ -17,5 +17,6 @@ export {
 	IHCAPIDirectoryContact,
 	IHCAPIMessage,
 	IHCAPIThread,
-	IHCAPIUser
+	IHCAPIUser,
+	IHCAPIBase
 } from "./objects";

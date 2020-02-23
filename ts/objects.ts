@@ -7,32 +7,38 @@
 
 export type IHCAPICurried<T extends { [key: string]: any }> = { [K in keyof T]: () => T[K] };
 
-export interface IHCAPIUser {
+export interface IHCAPIBase {
+	id: string;
+	updatedAt: number;
+	createdAt: number;
+}
+
+export interface IHCAPIUser extends IHCAPIBase{
 	firstName: string;
 	lastName: string;
 	username: string;
 	publicKey: Buffer;
 }
 
-export interface IHCAPIThread {
+export interface IHCAPIThread extends IHCAPIBase {
 	name: string;
 	description: string;
 	memberIds: string[];
 }
 
-export interface IHCAPIMessage {
+export interface IHCAPIMessage extends IHCAPIBase {
 	senderId: string;
 	threadId: string;
 	payload: Buffer;
 }
 
-export interface IHCAPIDevice {
+export interface IHCAPIDevice extends IHCAPIBase {
 	userId: string;
 	name: string;
 	publicKey: Buffer;
 }
 
-export interface IHCAPIDirectoryContact {
+export interface IHCAPIDirectoryContact extends IHCAPIBase {
 	firstName: string;
 	lastName: string;
 	username: string;

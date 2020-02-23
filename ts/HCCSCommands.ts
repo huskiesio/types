@@ -12,95 +12,89 @@ export interface HCCSGlobalCommands extends CommandSetStructure {
 	ping: {
 		parameter: void;
 		return: number;
-		name: "";
 	};
 }
 
 export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalCommands {
 	"signUp start": {
-		parameter: {email: string, password: string, userPublicKey: string, devicePublicKey: string};
+		parameter: {
+			email: string,
+			password: string,
+			userPublicKey: Buffer,
+			devicePublicKey: Buffer,
+			firstName: string,
+			lastName: string,
+			deviceName: string
+		};
 		return: void;
-		name: "";
 	};
 	"signUp finish": {
-		parameter: {username: string, code: number};
+		parameter: string;
 		return: void;
-		name: "";
 	};
-	"signIn": {
-		parameter: {username: string, password: string};
+	"signIn start": {
+		parameter: {username: string, password: string, deviceId: string, devicePublicKey: Buffer, needsUserPrivateKey: boolean};
+		return: Buffer;
+	};
+	"signIn finish": {
+		parameter: {signature: Buffer};
 		return: void;
-		name: "";
 	};
 	"user me": {
 		parameter: void;
 		return: IHCAPIUser;
-		name: "";
 	};
 	"user me avatar get": {
 		parameter: void;
-		return: Buffer;
-		name: "";
+		return: Buffer | undefined;
 	};
 	"user me avatar set": {
 		parameter: Buffer;
 		return: void;
-		name: "";
 	};
 	"user me password": {
 		parameter: {current: string, new: string};
 		return: void;
-		name: "";
 	};
 	"user search username": {
 		parameter: string;
-		return: IHCAPIUser;
-		name: "";
+		return: IHCAPIUser | undefined;
 	};
 	"user search id": {
 		parameter: string;
-		return: IHCAPIUser;
-		name: "";
+		return: IHCAPIUser | undefined;
 	};
 	"user search query": {
 		parameter: string;
 		return: IHCAPIUser[];
-		name: "";
 	};
 	"chat send": {
 		parameter: {threadId: string, payload: {[userId: string]: Buffer}};
 		return: void;
-		name: "";
 	};
 	"chat history me": {
 		parameter: void;
 		return: IHCAPIMessage[];
-		name: "";
 	};
 	"chat history in": {
 		parameter: string;
 		return: IHCAPIMessage[];
-		name: "";
 	};
 	"crypto user publicKey": {
 		parameter: string;
 		return: Buffer;
-		name: "";
 	};
 	"crypto device publicKey": {
 		parameter: string;
 		return: Buffer;
-		name: "";
 	};
 	"registration user privateKey": {
 		parameter: {salt: Buffer, password: Buffer};
 		return: void;
-		name: "";
 	};
 	"registration user device publicKeys": {
 		parameter: string;
 		return: {[deviceId: string]: Buffer};
-		name: "";
 	};
 }
 
@@ -108,21 +102,17 @@ export interface HCCSBotCommands extends CommandSetStructure, HCCSGlobalCommands
 	"me avatar": {
 		parameter: Buffer;
 		return: void;
-		name: "";
 	};
 	"registration provideUserPrivateKey": {
 		parameter: {newDevicePublicKey: Buffer, hashedPasswordProvided: Buffer, salt: Buffer};
 		return: Buffer;
-		name: "";
 	};
 	"chat message received": {
 		parameter: {threadId: string, senderId: string, payload: Buffer, timestamp: number};
 		return: void;
-		name: "";
 	};
 	"chat message sent": {
 		parameter: {threadId: string, payload: Buffer, timestamp: number};
 		return: void;
-		name: "";
 	};
 }
