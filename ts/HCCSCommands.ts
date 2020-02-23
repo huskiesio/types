@@ -6,7 +6,7 @@
  */
 
 import {CommandSetStructure} from "@command-socket/core";
-import {IHCAPIMessage, IHCAPIUser} from "./objects";
+import {IHCAPIMessage, IHCAPIThread, IHCAPIUser} from "./objects";
 
 export interface HCCSGlobalCommands extends CommandSetStructure {
 	ping: {
@@ -72,12 +72,16 @@ export interface HCCSServerCommands extends CommandSetStructure, HCCSGlobalComma
 		parameter: {threadId: string, payload: {[userId: string]: Buffer}};
 		return: void;
 	};
-	"chat history me": {
+	"chat history me messages": {
 		parameter: void;
 		return: IHCAPIMessage[];
 	};
+	"chat history me threads": {
+		parameter: void;
+		return: IHCAPIThread[];
+	};
 	"chat history in": {
-		parameter: string;
+		parameter: void;
 		return: IHCAPIMessage[];
 	};
 	"crypto user publicKey": {
